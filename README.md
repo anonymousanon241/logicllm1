@@ -1,3 +1,7 @@
+<div align="center">
+<img src="./assets/Lole_logo.png" width=60%>
+<br>
+  
 ## INTRODUCTION
 The project explores the generation and processing of responses from Large Language Models (LLMs) under normal and hallucinatory conditions. It includes scripts to generate responses, process them using various logic gates (OR, AND, NOT XOR, NOT AND), calculate semantic similarity scores, and create plots. This README provides a guide on the structure, usage, and requirements to replicate the experiments or extend the work.
 
