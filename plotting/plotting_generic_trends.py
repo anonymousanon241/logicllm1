@@ -16,12 +16,12 @@ def calculate_averages(df, row_ranges, columns_to_average):
 
 def prepare_scatter_data(averages_df):
     """Prepares data for clustering scatter points."""
-    scatter_data = averages_df.T.reset_index().rename(columns={'index': 'Temperature'})
-    melted_scatter_data = scatter_data.melt(id_vars='Temperature', var_name='Gate Type', value_name='Average Score')
+    scatter_data = averages_df.T.reset_index().rename(columns={'index': 'Prompt_Type'})
+    melted_scatter_data = scatter_data.melt(id_vars='Prompt_Type', var_name='Gate Type', value_name='Average Score')
     #Generic
-    #melted_scatter_data['Temperature'] = pd.Categorical(melted_scatter_data['Temperature'], ["Opinion", "Factual", "Imaginative"])
+    #melted_scatter_data['Prompt_Type'] = pd.Categorical(melted_scatter_data['Prompt_Type'], ["Opinion", "Factual", "Imaginative"])
     #Hallucinations
-    melted_scatter_data['Temperature'] = pd.Categorical(melted_scatter_data['Temperature'], ["T(0.2,0.2)", "T(0.2,0.7)", "T(0.2,1.3)", "T(0.2,2.0)"])
+    melted_scatter_data['Prompt_Type'] = pd.Categorical(melted_scatter_data['Prompt_Type'], ["Generic", "Extrinsic", "Intrinsic"])
     return melted_scatter_data
 
 def plot_data(df, scatter_data_expanded, categories_ranges, gate_type_offsets, gate_type_styles, gate_type_colors):
@@ -29,13 +29,13 @@ def plot_data(df, scatter_data_expanded, categories_ranges, gate_type_offsets, g
     plt.figure(figsize=(7, 3.5) )
 
     # Assigning x_values for scatter plot
-    scatter_data_expanded['x_value'] = scatter_data_expanded['Temperature'].cat.codes
+    scatter_data_expanded['x_value'] = scatter_data_expanded['Prompt_Type'].cat.codes
     for gate_type, offset in gate_type_offsets.items():
         scatter_data_expanded.loc[scatter_data_expanded['Gate Type'] == gate_type, 'x_value'] += offset
 
     # Plotting average scores
-    for prompt_type in scatter_data_expanded['Temperature'].cat.categories:
-        subset = scatter_data_expanded[scatter_data_expanded['Temperature'] == prompt_type]
+    for prompt_type in scatter_data_expanded['Prompt_Type'].cat.categories:
+        subset = scatter_data_expanded[scatter_data_expanded['Prompt_Type'] == prompt_type]
         sns.scatterplot(data=subset, x='x_value', y='Average Score', hue='Gate Type', style='Gate Type', s=100, legend=False)
         plt.plot(subset['x_value'], subset['Average Score'], linestyle='-', alpha=1)
 
@@ -45,7 +45,7 @@ def plot_data(df, scatter_data_expanded, categories_ranges, gate_type_offsets, g
         for idx, row in category_data.iterrows():
             row_x_values, row_y_values = [], []
             for gate_type, offset_value in gate_type_offsets.items():
-                x_value = scatter_data_expanded['Temperature'].cat.categories.get_loc(category) + offset_value
+                x_value = scatter_data_expanded['Prompt_Type'].cat.categories.get_loc(category) + offset_value
                 y_value = row[gate_type]
                 row_x_values.append(x_value)
                 row_y_values.append(y_value)
@@ -59,13 +59,12 @@ def plot_data(df, scatter_data_expanded, categories_ranges, gate_type_offsets, g
 
     # Setting plot details
     #plt.title('Average and Individual Logic Scores')
-    plt.ylim(0, 1)
     plt.ylabel('Lole Network Score')
-    plt.xlabel('Temperature Variations')
+    plt.xlabel('Prompt Type')
     # Generic
     #plt.xticks(ticks=[0, 1, 2], labels=["Opinion", "Factual", "Imaginative"])
     # Hallucinations
-    plt.xticks(ticks=[0, 1, 2, 3], labels=["T=0.2", "T=0.7", "T=1.3", "T=2.0"])
+    plt.xticks(ticks=[0, 1, 2], labels=["Generic", "Extrinsic", "Intrinsic"])
     plt.grid(True)
     plt.show()
 
@@ -74,7 +73,7 @@ file_path = 'logic_scores.csv'
 #Response Types
 #row_ranges = {'Opinion': (1, 12), 'Factual': (59, 70), 'Imaginative': (83, 94)}
 #Hallucinations
-row_ranges = {'T(0.2,0.2)': (188, 196), 'T(0.2,0.7)': (198, 206), 'T(0.2,1.3)': (208, 216), 'T(0.2,2.0)': (218, 226) }
+row_ranges = {'Generic': (1, 12), 'Extrinsic': (119, 127), 'Intrinsic': (176, 187)}
 columns_to_average = ['OR Similarity Score', 'AND Similarity Score', 'NOT XOR Similarity Score', 'NOT AND Similarity Score']
 gate_type_offsets = {'OR Similarity Score': -1.5 * 0.1, 'AND Similarity Score': -0.5 * 0.1, 
                      'NOT XOR Similarity Score': 0.5 * 0.1, 'NOT AND Similarity Score': 1.5 * 0.1}

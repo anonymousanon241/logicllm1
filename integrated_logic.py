@@ -11,8 +11,8 @@ import os
 k = 0
 for k in range(3): 
     # Set up API keys and model directories
-    HF_TOKEN = "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"
-    OPENAI_API_KEY = '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'
+    HF_TOKEN = ""
+    OPENAI_API_KEY = ''
     CEREBRAS_MODEL_DIR = r"C:\Users\indra\OneDrive\Desktop\GitHub\lg_llm\Checkpoints"
 
     # Instantiate classes

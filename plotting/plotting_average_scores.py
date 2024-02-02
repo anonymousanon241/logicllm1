@@ -57,7 +57,7 @@ def plot_data(category_averages, row_averages_data, categories, columns_to_avera
 
 # Constants
 file_path = 'logic_scores.csv'
-row_ranges = {'Generic': (189, 197), 'Extrinsic': (202, 214), 'Intrinsic': (216, 228)}
+row_ranges = {'Generic': (1, 12), 'Extrinsic': (119, 127), 'Intrinsic': (176, 186)}
 columns_to_average = ['OR Similarity Score', 'AND Similarity Score', 'NOT XOR Similarity Score', 'NOT AND Similarity Score']
 categories = ["Generic", "Extrinsic", "Intrinsic"]
 
@@ -65,4 +65,3 @@ categories = ["Generic", "Extrinsic", "Intrinsic"]
 df = read_data(file_path)
 category_averages, row_averages_data = calculate_row_and_category_averages(df, row_ranges, columns_to_average)
 plot_data(category_averages.iloc[0], row_averages_data, categories, columns_to_average)
-
