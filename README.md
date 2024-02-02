@@ -1,8 +1,6 @@
-<div align="center">
-<img src="./assets/Lole_Logo.jpg" width=60%>
-<br>
 
-## INTRODUCTION - Lole Networks
+## INTRODUC![Lole_Logo](https://github.com/anonymousanon241/logicllm1/assets/158548740/5cca9afc-7cc3-4746-be7c-bd739dfaa23b)
+TION - Lole Networks
 The project explores the generation and processing of responses from Large Language Models (LLMs) under normal and hallucinatory conditions. It includes scripts to generate responses, process them using various logic gates (OR, AND, NOT XOR, NOT AND), calculate semantic similarity scores, and create plots. This README provides a guide on the structure, usage, and requirements to replicate the experiments or extend the work.
 
 ## Directory Structure
