@@ -54,7 +54,7 @@ For plotting and analysis, add or modify scripts in the /plotting directory.
 Contributions are welcome! If you have improvements or new features, please submit a pull request or open an issue.
 
 ## Citation
-If you use this work in your research, please cite the accompanying paper (details provided in the submission).
+If you use this work in your research, please cite the accompanying paper (details will be provided in the submission).
 
 ## License
 MIT License
